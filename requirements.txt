@@ -1,0 +1,8 @@
+numpy
+streamlit
+pandas
+matplotlib
+seaborn
+logging
+st_aggrid
+datetime
