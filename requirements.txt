@@ -4,5 +4,7 @@ pandas
 matplotlib
 seaborn
 logging
+streamlit-aggrid
+st-aggrid
 st_aggrid
 datetime
