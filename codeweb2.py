@@ -4,6 +4,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import logging
+import plotly as py
+import plotly.graph_objects as go
 from st_aggrid import AgGrid, GridOptionsBuilder
 from datetime import datetime
 
@@ -18,6 +20,47 @@ try:
 except FileNotFoundError:
         st.error("Data file not found. Please ensure the file is in the specified directory.")
         st.stop()
+
+
+
+def df(data):
+    """
+    Simulates Streamlit's st.dataframe() using Plotly for interactive table display.
+
+    Parameters:
+        data (pd.DataFrame): The DataFrame to display.
+    """
+    if not isinstance(data, pd.DataFrame):
+        raise ValueError("Input must be a pandas DataFrame.")
+
+    # Create the Plotly Table
+    fig = go.Figure(data=[go.Table(
+        header=dict(
+            values=list(data.columns),  # Column headers
+            fill_color='paleturquoise',  # Header background color
+            align='left',  # Align text to the left
+            font=dict(size=14, color='black')  # Font size and color for headers
+        ),
+        cells=dict(
+            values=[data[col] for col in data.columns],  # Cell values for each column
+            fill_color='lavender',  # Cell background color
+            align='left',  # Align text to the left
+            font=dict(size=12, color='black')  # Font size and color for cells
+        )
+    )])
+
+    # Show the table in the output
+    fig.show()
+
+
+# Example Usage
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [24, 27, 22],
+    'City': ['New York', 'Los Angeles', 'Chicago']
+}
+df_example = pd.DataFrame(data)
+df(df_example)
 
 df = st.session_state.df
 
